@@ -166,6 +166,7 @@ void CitoSQOPT::solveCvx(double *xTraj, double r, const eigMm X, const eigMd U,
         hs[i] = 0;  eType[i] = 0;  rc[i] = 0.0;
         if( i>=n ) { pi[i-n] = 0.0; }
     }
+
     // set linear constraints and bounds
     this->setA(valA, indA, locA, Fx, Fu);
     this->setBounds(r, X, U, bl, bu, isJFree, isAFree, qposLB, qposUB, tauLB, tauUB);
@@ -199,6 +200,20 @@ void CitoSQOPT::setBounds(double r, const eigMm X, const eigMd U,
     for( int i=0; i<cp.N+1; i++ )
     {
         // states
+        // set dynamic constraints on state
+        if (X.col(i)[6] < 0.5){
+            qposLB[7] = -0.25;
+            qposUB[7] = 0.25;
+            isJFree[7] = 0;
+        } else
+        {
+            std::cout << "CHECK 1!!!!!!!!!!!!!!!!!!\n";
+            isJFree[7] = 1;
+            isJFree[6] = 0;
+            qposLB[6] = 0;
+            qposUB[6] = 1;
+        }
+
         for( int j=0; j<m->nv; j++ )
         {
             // change in free joint positions: unbounded
@@ -208,6 +223,8 @@ void CitoSQOPT::setBounds(double r, const eigMm X, const eigMd U,
                 bl[i*cp.n+j] = qposLB[j] - X.col(i)[j];
                 bu[i*cp.n+j] = qposUB[j] - X.col(i)[j];
             }
+            std::cout << j << "check bound low: " << bl[i*cp.n+j] << "\n";
+            std::cout << j << "check bound up: " << bu[i*cp.n+j] << "\n";
             // change in joint velocities: unbounded (already set)
         }
         // controls

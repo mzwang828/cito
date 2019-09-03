@@ -31,16 +31,22 @@
 
         <!-- Environment -->
         <geom name="floor" pos="0 0 0" size="5 5 .125" type="plane" material="MatPlane" condim="3"/>
+        <body name="static_obs1" pos="-1.0 1.5 0.5" >
+            <geom name="so1" type="box" size="1.0 1.0 0.5" group="1" rgba="0.7 0.7 0.7 1" />
+        </body>
+        <!-- <body name="static_obs2" pos="1 -1.5 0.5" >
+            <geom name="so2" type="box" size="0.1 1.0 0.5" group="1" rgba="0.7 0.7 0.7 1" />
+        </body> -->
 
         <!-- melissa & doug red, large cardboard -->
-        <body name="object" pos="1.2 0 0.066" quat="1 0 0 0">
+        <body name="object" pos="0.45 0 0.1" quat="0.9004471 0 0 0.4349655">
             <inertial pos="0 0 0" mass=".155" diaginertia="0.0003686049833333333 0.001255996129167 0.001460916979167" />
             <joint name="object" type="free" limited="false"/>
-            <geom name="object" type="box" size="0.15075 0.0745 0.0398" group="1" rgba=".9 0 0 1"/>
-            <site name="obj_front" pos="-0.15075 0 0" quat="1 0 0 0" type="sphere" size="1e-3" group="2" rgba="1 1 0 1" />
-            <site name="obj_right" pos="0 -0.0745 0" quat="0.707 0 0 0.707" type="sphere" size="1e-3" group="2" rgba="1 1 0 1" />
-            <site name="obj_left" pos="0 +0.0745 0" quat="0.707 0 0 -0.707" type="sphere" size="1e-3" group="2" rgba="1 1 0 1" />
-            <site name="obj_rear" pos="+0.15075 0 0" quat="0 0 0 1" type="sphere" size="1e-3" group="2" rgba="1 1 0 1" />
+            <geom name="object" type="box" size="0.15 0.15 0.1" group="1" rgba=".9 0 0 1"/>
+            <site name="obj_front" pos="-0.15 0 0" quat="1 0 0 0" type="sphere" size="1e-3" group="2" rgba="1 1 0 1" />
+            <site name="obj_right" pos="0 -0.15 0" quat="0.707 0 0 0.707" type="sphere" size="1e-3" group="2" rgba="1 1 0 1" />
+            <site name="obj_left" pos="0 +0.15 0" quat="0.707 0 0 -0.707" type="sphere" size="1e-3" group="2" rgba="1 1 0 1" />
+            <site name="obj_rear" pos="+0.15 0 0" quat="0 0 0 1" type="sphere" size="1e-3" group="2" rgba="1 1 0 1" />
         </body>
 
         <!-- Robot -->
@@ -51,7 +57,7 @@
             <inertial pos="-0.019482 0.002191 0.071013" quat="-0.163088 0.695987 0.176074 0.676759" mass="10.2394" diaginertia="0.145076 0.0958414 0.0713624" />
             <joint name="base_slide_joint_x" pos="0 0 0" axis="1 0 0" type="slide" damping="0.7" />
             <joint name="base_slide_joint_y" pos="0 0 0" axis="0 1 0" type="slide" damping="0.7" />
-            <joint name="base_roll_joint" pos="0 0 0" axis="0 0 1" damping="0.7" />
+            <joint name="base_roll_joint" pos="0 0 0" axis="0 0 1" type="hinge" damping="0.7" />
             <body name="base_r_drive_wheel_link" pos="-0.11 -0.133 0.04">
                 <inertial pos="0 0 0" mass="0.2" diaginertia="0.015 0.015 0.015" />
                 <!--                <joint name="base_r_drive_wheel_joint" pos="0 0 0" axis="0 1 0" damping="1" />-->
@@ -187,7 +193,7 @@
             </body>
         </body>
         <!-- Ghost representing desired pose -->
-        <body name="ghost" pos="0 0 0" >
+        <body name="ghost" pos="1.0 1.5 0.0" >
             <geom name="ghost" pos="0 0 0.07" type="cylinder" size="0.215 0.07" group="1" rgba="0 .9 0 0.3"/>
         </body>
     </worldbody>
@@ -208,7 +214,7 @@
 
     <!-- Key frames -->
     <keyframe>
-        <key name="init_pose" qpos="0.5 0 0.05 1 0 0 0 0 0 0" />
+        <key name="init_pose" qpos="0.45 0 0.1 0.9004471 0 0 0.4349655 0 0 0" />
     </keyframe>
 
 </mujoco>
